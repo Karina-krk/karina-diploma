@@ -1,21 +1,22 @@
-import { collection, getDocs, addDoc } from 'firebase/firestore'
-import { db, storage } from '@/firebase'
-import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { collection, getDocs, addDoc, } from 'firebase/firestore'
+import { db,  } from '@/firebase'
+// import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
+const user = ref()
+const userList = ref([])
+
+const loading = ref({
+  user: false,
+  userList: false
+})
+
 export const useUser = () => {
-  const user = ref(JSON.parse(localStorage.getItem('user')))
-
-  const loading = ref({
-    user: false
-  })
-
   const auth = getAuth()
 
   const userRemake = computed(() => {
     if (user.value) {
-      console.log(user.value)
       return {
         displayName: user.value.displayName,
         email: user.value.email,
@@ -32,9 +33,7 @@ export const useUser = () => {
     signInWithPopup(auth, provider)
       .then(async (userCredential) => {
         user.value = userCredential.user
-        console.log(userRemake.value)
-        // await addUserToMainDatabase()
-        // location.reload()
+        await addUserToMainDatabase()
       })
       .catch((error) => {
         console.error(error)
@@ -44,11 +43,11 @@ export const useUser = () => {
   async function addUserToMainDatabase() {
     loading.value.user = true
     try {
-      console.log(user.value)
-      const res = await addDoc(collection(db, 'users'), user.value)
-      console.log(res)
-      if (res) {
-        localStorage.setItem('user', JSON.stringify(user.value))
+      if (userRemake.value) {
+        await getAllUsers()
+        if (!checkUserInDataBase()) {
+          await addDoc(collection(db, 'users'), userRemake.value)
+        }
       }
       loading.value.user = false
     } catch (error) {
@@ -56,15 +55,35 @@ export const useUser = () => {
     }
   }
 
+  async function getAllUsers() {
+    loading.value.userList = true
+    try {
+      const querySnapshot = await getDocs(collection(db, 'users'))
+      querySnapshot.forEach((doc) => {
+        userList.value.push(doc.data())
+      })
+      loading.value.userList = false
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  function checkUserInDataBase (){
+    return userList.value.some((item)=> item.uid === userRemake.value?.uid)
+  }
+
   function googleLogout() {
-    localStorage.removeItem('user')
-    location.reload()
+    auth.signOut()
+    user.value = null
   }
 
   return {
     user,
     loading,
     googleRegister,
-    googleLogout
+    googleLogout,
+    getAllUsers,
+    userRemake,
+    userList,
   }
 }
