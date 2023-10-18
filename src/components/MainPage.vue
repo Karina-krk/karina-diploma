@@ -16,9 +16,9 @@
         </div>
       </div>
       <ul class="thumb">
-        <li><img src="@/assets/dog1.png" @click="imgSlider('@/src/assets/origdog1.png')" alt="Собака 1"></li>
-        <li><img src="@/assets/dog2.png" @click="imgSlider('../../src/assets/origdog2.png')" alt="Собака 2" style="height: 80px; width: 110px"></li>
-        <li><img src="@/assets/dog3.png" @click="imgSlider('../../src/assets/origdog3.png')" alt="Собака 3"></li>
+        <li v-for="dog in dogImages" :key="dog.alt">
+          <img :src="dog.path" :alt="dog.alt" @click="imgSlider(dog.path)">
+        </li>
       </ul>
       <ul class="sci">
         <li><a href="#"><img src="@/assets/fb.png" alt="Facebook"></a></li>
@@ -29,9 +29,25 @@
 </template>
 
 <script setup>
+
 import { ref } from 'vue'
 
-const currentImage = ref('../../src/assets/origdog1.png')
+const dogImages = [
+  {
+    path: new URL('@/assets/dog1.png', import.meta.url).href,
+    alt: 'Собака 1'
+  },
+  {
+    path: new URL('@/assets/dog2.png', import.meta.url).href,
+    alt: 'Собака 2'
+  },
+  {
+    path: new URL('@/assets/dog3.png', import.meta.url).href,
+    alt: 'Собака 3'
+  },
+]
+
+const currentImage = ref(new URL('@/assets/dog1.png', import.meta.url).href)
 
 function imgSlider(image) {
     currentImage.value = image
@@ -184,8 +200,8 @@ header {
   
   .sci {
     position: absolute;
-    top: 50%;
-    right: 30px;
+    top: 50%;   
+    left: 500px;
     transform: translateY(-50%);
     display: flex;
     justify-content: center;

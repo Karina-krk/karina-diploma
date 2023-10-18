@@ -1,8 +1,8 @@
 <script setup>
-import MainPage from '../components/layouts/MainPage.vue';
+import MainPage from '../components/MainPage.vue';
+
 </script>
 
 <template>
   <MainPage />
-  Работает
 </template>
