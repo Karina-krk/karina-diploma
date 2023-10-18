@@ -16,7 +16,7 @@
         </div>
       </div>
       <ul class="thumb">
-        <li><img src="@/assets/dog1.png" @click="imgSlider('../../src/assets/origdog1.png')" alt="Собака 1"></li>
+        <li><img src="@/assets/dog1.png" @click="imgSlider('@/src/assets/origdog1.png')" alt="Собака 1"></li>
         <li><img src="@/assets/dog2.png" @click="imgSlider('../../src/assets/origdog2.png')" alt="Собака 2" style="height: 80px; width: 110px"></li>
         <li><img src="@/assets/dog3.png" @click="imgSlider('../../src/assets/origdog3.png')" alt="Собака 3"></li>
       </ul>
