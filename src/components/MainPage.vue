@@ -20,11 +20,6 @@
           <img :src="dog.path" :alt="dog.alt" @click="imgSlider(dog.path)">
         </li>
       </ul>
-      <ul class="sci">
-        <li><a href="#"><img src="@/assets/fb.png" alt="Facebook"></a></li>
-        <li><a href="#"><img src="@/assets/tw.png" alt="Twitter" style="width: 50%;"></a></li>
-        <li><a href="#"><img src="@/assets/inst.png" alt="Instagram"></a></li>
-      </ul>
     </section>
 </template>
 
@@ -52,6 +47,7 @@ const currentImage = ref(new URL('@/assets/dog1.png', import.meta.url).href)
 function imgSlider(image) {
     currentImage.value = image
 }
+
 </script>
 
 <style scoped>
