@@ -33,11 +33,11 @@ const dogImages = [
     alt: 'Собака 1'
   },
   {
-    path: new URL('@/assets/dog2.png', import.meta.url).href,
+    path: new URL('@/assets/dog2.jpeg', import.meta.url).href,
     alt: 'Собака 2'
   },
   {
-    path: new URL('@/assets/dog3.png', import.meta.url).href,
+    path: new URL('@/assets/dog3.jpeg', import.meta.url).href,
     alt: 'Собака 3'
   },
 ]
@@ -51,10 +51,6 @@ function imgSlider(image) {
 </script>
 
 <style scoped>
-@font-face {
-    font-family: Poppins;
-    src: url(../../assets/Poppins-Black.ttf);
-}
 * {
   margin: 0;
   padding: 0;

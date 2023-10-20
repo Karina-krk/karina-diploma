@@ -1,7 +1,9 @@
 <template> 
   <section class="container"> 
     <header> 
-      <a href="#"><img src="@/assets/logo.png" class="logo" alt="logo" /></a> 
+      <router-link to="/">
+        <img src="@/assets/logo.png" alt="logo" class="logo" />
+      </router-link>
       <ul>
         <li v-for="(item, index) in menuItems" :key="index">
           <a :href="item.link">{{ item.text }}</a>
