@@ -25,7 +25,7 @@ const { user, googleRegister, googleLogout } = useUser();
 const menuItems = [
   { text: 'Главная', link: '/' },
   { text: 'Породы собак', link: '/breeds' },
-  { text: 'Про собак', link: '/about' },
+  { text: 'Магазин', link: '/store' },
   { text: "What's new", link: '#' }
 ];
  
@@ -39,6 +39,7 @@ const menuItems = [
   padding: 0; 
   box-sizing: border-box; 
   font-family: 'Poppins', sans-serif; 
+  z-index: 1;
 } 
  
 .circle { 
@@ -53,7 +54,7 @@ const menuItems = [
  
 .container { 
   position: relative; 
-  padding: 100px; 
+  padding-bottom: 140px; 
   display: flex; 
   justify-content: space-between; 
   align-items: center; 

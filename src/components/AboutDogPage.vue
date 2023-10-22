@@ -1,10 +1,9 @@
 <template>
   <div class="root">
     <img class="background" ref="background" src="../assets/background.jpeg" />
-    <img class="foreground" ref="foreground" src="../assets/foreground.png" />
     <div class="section section-1" ref="first">
       <div>
-        <h1>Parallax Made Easy.</h1>
+        <h1>Про Собак DOGOG</h1>
       </div>
     </div>
     <div class="section section-2" ref="second">
@@ -19,7 +18,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const foreground = ref(null);
 const background = ref(null);
 const first = ref(null);
 const second = ref(null);
@@ -31,7 +29,6 @@ const handleScroll = () => {
   const maxBackgroundSize = 120;
   const backgroundSize = scrollY / (maxBackgroundSize - 100);
   background.value.style.transform = 'scale(' + (100 + backgroundSize * 0.4) / 100 + ')';
-  foreground.value.style.transform = 'scale(' + (100 + backgroundSize) / 100 + ')';
 };
 
 onMounted(() => {
@@ -44,8 +41,8 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-img.background,
-img.foreground {
+img.background {
+  z-index: 0;
   min-height: 100%;
   min-width: 100%;
   height: auto;
@@ -66,7 +63,7 @@ img.background {
   position: fixed;
   color: white;
   left: 50%;
-  top: 50%;
+  top: 55%;
   transform: translate(-50%, -50%);
 }
 
