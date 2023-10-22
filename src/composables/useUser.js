@@ -50,6 +50,9 @@ export const useUser = () => {
 
         // достаем данные если не первый раз
         await getFromMainDatabase()
+
+        // добавляем в локал сторадж
+        addToLocalStorage()
       })
       .catch((error) => {
         console.error(error)
@@ -118,10 +121,30 @@ export const useUser = () => {
     }
   }
 
+  function addToLocalStorage() {
+    if (user.value) {
+      localStorage.setItem('user', JSON.stringify(user.value))
+    }
+  }
+
+  function getUserFromLocalStorage() {
+    const userFromLocalStorage = localStorage.getItem('user')
+    if (userFromLocalStorage) {
+      user.value = JSON.parse(userFromLocalStorage)
+    }
+  }
+
+  function removeFromLocalStorage() {
+    localStorage.removeItem('user')
+  }
+
   // выйти из гугла
   function googleLogout() {
     auth.signOut()
     user.value = null
+
+    // удаляем из локал сторадж
+    removeFromLocalStorage()
   }
 
   // это надо не всем
@@ -139,6 +162,9 @@ export const useUser = () => {
     googleLogout,
     getAllUsers,
     userToObject,
-    userList
+    userList,
+    addToLocalStorage,
+    getUserFromLocalStorage,
+    removeFromLocalStorage
   }
 }

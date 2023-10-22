@@ -20,13 +20,12 @@
 <script setup> 
 import PButton from 'primevue/button';
 import { useUser } from '@/composables/useUser';
-
 const { user, googleRegister, googleLogout } = useUser();
 
 const menuItems = [
-  { text: 'Home', link: '/' },
+  { text: 'Главная', link: '/' },
   { text: 'Породы собак', link: '/breeds' },
-  { text: 'Suda', link: '#' },
+  { text: 'Про собак', link: '/about' },
   { text: "What's new", link: '#' }
 ];
  

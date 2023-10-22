@@ -1,16 +1,15 @@
-import {getDocs, addDoc, collection, doc, deleteDoc} from 'firebase/firestore'
+import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
 import { db,  } from '@/firebase'
-import {  } from 'firebase/storage'
-import { ref,  } from 'vue'
-import {  } from 'firebase/auth'
-
+// import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref, } from 'vue'
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useUser } from './useUser'
 
 export const useContent = () => {
   const content = ref()
   const contentList = ref([])
   const newContent = ref({
-    author: ''
+    author: '' 
   })
 
   const loading = ref({
@@ -44,11 +43,11 @@ export const useContent = () => {
   }
 
   async function addContent() {
-    const { userRemake } = useUser()
+    const { userToObject } = useUser()
     loading.value.newContent = true
     try {
-      if (newContent.value && userRemake.value) {
-        newContent.value.author = userRemake.value
+      if (newContent.value && userToObject.value) {
+        newContent.value.author = userToObject.value
         await addDoc(collection(db, 'contents'), newContent.value)
         loading.value.newContent = false
       }
@@ -71,6 +70,7 @@ export const useContent = () => {
     content,
     contentList,
     loading,
+    newContent,
     getAllContent,
     getContentById,
     addContent,
