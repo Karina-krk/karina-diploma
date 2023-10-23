@@ -1,5 +1,4 @@
 <template>
-    <div class="circle"></div>
     <section class="container">
     <div class="content">
         <div class="textBox">
@@ -7,9 +6,9 @@
             Это не просто приют<br> Это <span>Dogog</span>
           </h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nulla saepe maxime, officiis molestias accusamus odio ducimus amet, atque repellendus ex fugit! Eos provident debitis vitae laboriosam tenetur mollitia odio?
+            Добро пожаловать в наш приют для собак! Мы предоставляем домашние условия для бездомных собак, заботимся о них и оказываем услуги по уходу. Наши волонтеры и питомцы ждут встречи с вами!
           </p>
-          <a href="#" class="learnMore">Узнать больше</a>
+          <a href="/breeds" class="learnMore">Перейти к каталогу</a>
         </div>
         <div class="imgBox">
           <img :src="currentImage" class="corgi">
@@ -33,11 +32,11 @@ const dogImages = [
     alt: 'Собака 1'
   },
   {
-    path: new URL('@/assets/dog2.jpeg', import.meta.url).href,
+    path: new URL('@/assets/dog2.png', import.meta.url).href,
     alt: 'Собака 2'
   },
   {
-    path: new URL('@/assets/dog3.jpeg', import.meta.url).href,
+    path: new URL('@/assets/dog3.png', import.meta.url).href,
     alt: 'Собака 3'
   },
 ]
@@ -126,6 +125,7 @@ header {
     font-size: 4em;
     line-height: 1.4em;
     font-weight: 500;
+    margin-bottom: 30px;
   }
   
   .textBox h2 span {
@@ -163,7 +163,7 @@ header {
   }
   
   .imgBox img {
-    max-width: 340px;
+    height: 400px;
   }
   
   .thumb {

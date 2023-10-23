@@ -10,15 +10,17 @@
         </li>
       </ul>
       <div class="side"> 
-        <p-button v-if="!user" type="button" @click="googleRegister" label="Войти" img="../../assets/lapa.png"></p-button> 
-        <p-button v-else type="button" @click="googleLogout" label="Выйти" icon="pi pi-sign-out"></p-button> 
+        <p-button v-if="!user" type="button" @click="googleRegister" label="Войти" icon="pi pi-lock"></p-button> 
+        <p-button v-else type="button" @click="googleLogout" label="Выйти" icon="pi pi-lock-open"></p-button> 
       </div> 
+      
     </header> 
   </section> 
 </template> 
  
 <script setup> 
 import PButton from 'primevue/button';
+import Dialog from 'primevue/dialog';
 import { useUser } from '@/composables/useUser';
 const { user, googleRegister, googleLogout } = useUser();
 
@@ -42,23 +44,13 @@ const menuItems = [
   z-index: 1;
 } 
  
-.circle { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background: rgba(255, 231, 95, 0.9); 
-  clip-path: circle(50% at right 0); 
-} 
- 
 .container { 
   position: relative; 
   padding-bottom: 140px; 
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  background: #f2f2f2; 
+  background: #c5c4c0; 
 } 
  
 header { 
@@ -106,8 +98,19 @@ header ul li a {
 header ul li a:hover { 
   color: #0068d8; 
 } 
- 
-.side p-button { 
-  margin-left: 10px; 
+
+.side{
+  background-color: rgb(203, 203, 203); 
+  border-radius: 10px;
+  min-width: 100px;
+  min-height: 70px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-button { 
+  background-color: rgb(203, 203, 203);
+  border: #f2f2f200;
 } 
+
 </style>
