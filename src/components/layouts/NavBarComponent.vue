@@ -20,7 +20,6 @@
  
 <script setup> 
 import PButton from 'primevue/button';
-import Dialog from 'primevue/dialog';
 import { useUser } from '@/composables/useUser';
 const { user, googleRegister, googleLogout } = useUser();
 
