@@ -5,11 +5,13 @@ import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useUser } from './useUser'
 import * as firebase from 'firebase/storage'
+import { createId } from '../utils/index.js'
 
 export const useContent = () => {
   const content = ref()
   const contentList = ref([])
   const newContent = ref({
+    id: createId(),
     image: null,
     breed: '',
     age: '',
@@ -58,6 +60,7 @@ export const useContent = () => {
         return res;
         // loading.value.newContent = false
       }
+      
     } catch (error) {
       console.error(error)
     }

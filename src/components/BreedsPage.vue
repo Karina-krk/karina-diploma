@@ -1,25 +1,23 @@
 <template>
-    <div id="app">
-      <div class="container">
-        <div class="card" v-for="(dog, index) in dogs" :key="index">
-          <img :src="dog.image" :alt="dog.name">
-          <h2>{{ dog.name }}</h2>
-          <p>Breed: {{ dog.breed }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card" v-for="(dog, index) in dogsData" :key="index">
+  <div class="container">
+      <section class="dogs" v-for="dog in dogsData" :key="dog.id">
+        <DogItem :dog="dog" @click.stop="goToDogUrl(dog.id)" />
+      </section>
+    <div class="card" v-for="(dog, id) in dogsData" :key="id">
+      <router-link :to="'/dog/' + dog.id">
         <img :src="dog.image" :alt="dog.breed">
         <h2>{{ dog.breed }}</h2>
         <p>Возраст: {{ dog.age }}</p>
         <p>{{ dog.description }}</p>
+      </router-link>
       </div>
-    </div>
-    <Button label="Show" icon="pi pi-external-link" @click="visible = true" />
-  <Dialog v-model:visible="visible" modal header="Добавить игру" :style="{ width: '30vw' }">
+  </div>
+    <Button label="Добавить" class="p-button" @click="visible = true">
+      <i class="fas fa-dog">Добавить</i>
+    </Button>
+  <Dialog v-model:visible="visible" modal header="Добавить" :style="{ width: '30vw' }">
     <div class="p-field">
-      <label for="price">Порода:</label>
+      <label for="breed">Порода:</label>
       <InputText
         style="margin-top: 10px; margin-bottom: 10px; width: 100%"
         id="breed"
@@ -58,6 +56,7 @@
       <Button label="Добавить" icon="pi pi-check" @click="add" autofocus />
     </template>
   </Dialog>
+  
 </template>
   
 
@@ -71,29 +70,13 @@ import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { useContent } from '../composables/useContent';
 import Textarea from 'primevue/textarea';
+import DogItem from './DogItem.vue';
+import { useRouter } from 'vue-router'
 
-const dogs = [
-    { 
-      breed: "Австралийская овчарка (Аусси)", 
-      image: "https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQaodBpDpPXz2JoGPoSUrRUy42TDcvDo6ipsID7d2vJE31RcDnb-NercBRbdxbYL14K",
-      age: "12",
-      description: "Хорошая овчарка"
-    },
-    { 
-      breed: "Акита ину", 
-      image: "https://lapkins.ru/upload/iblock/c06/c06d4716c1620542d39f3e480950e016.jpg",
-      age: "1",
-      description: "Хорошая акита ину"
-    },
-    { 
-      breed: "Бассенджи", 
-      image: "https://lapkins.ru/upload/iblock/f60/f608e712750929627adf73d8603204ea.jpg",
-      age: "5",
-      description: "Хороший бассенджи"
-    },
-  ]
 
-const { uploadImage, newContent, addContent } = useContent();
+const router = useRouter()
+
+const { uploadImage, newContent, addContent, getContentList } = useContent();
 const visible = ref(false);
 
 async function add() {
@@ -105,6 +88,7 @@ async function add() {
 async function addDog() {
   try {
     const dogData = {
+      id: newContent.value.id,
       breed: newContent.value.breed,
       age: newContent.value.age,
       description: newContent.value.description,
@@ -120,6 +104,7 @@ async function addDog() {
 }
 function clear() {
   newContent.value = {
+    id: 0,
     breed: '',
     image: '',
     age: '',
@@ -138,12 +123,18 @@ const dogsData = ref([]);
 onMounted(async () => {
   const querySnapshot = await getDocs(collection(db, 'dogs'));
   dogsData.value = querySnapshot.docs.map(doc => doc.data());
+  getContentList();
 });
+
+
+function goToDogUrl(id) {
+  router.push({ name: 'dog', params: { id } })
+}
 
 </script>
 
   
-  <style>
+  <style scoped>
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -177,5 +168,20 @@ onMounted(async () => {
   .card p {
     color: #888;
   }
+  .p-button {
+    display: inline-flex;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    color: rgb(241, 255, 249);
+    background-color: rgb(43, 144, 226);
+    width: 100px;
+    height: 50px;
+    font-size: 17px;
+}
   </style>
   

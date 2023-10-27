@@ -10,6 +10,7 @@ import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/lara-dark-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCSB_YadtvRcpdD4_EZerCe4ar82I8FhzE",

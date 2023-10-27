@@ -102,6 +102,7 @@ img.background {
 .section-2 h2 {
   font-size: 2em;
   margin-bottom: 10px;
+  color: cadetblue;
 }
 
 .section-2 p {
