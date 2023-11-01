@@ -1,14 +1,11 @@
 <template>
   <div class="container">
-      <section class="dogs" v-for="dog in dogsData" :key="dog.id">
-        <DogItem :dog="dog" @click.stop="goToDogUrl(dog.id)" />
-      </section>
-    <div class="card" v-for="(dog, id) in dogsData" :key="id">
-      <router-link :to="'/dog/' + dog.id">
-        <img :src="dog.image" :alt="dog.breed">
+    <div class="card" v-for="(dog, index) in dogsData" :key="index">
+      <router-link :to="'/dog/' + dog.id" class="link">
+        <img :src="dog.image" :alt="dog.image">
         <h2>{{ dog.breed }}</h2>
-        <p>Возраст: {{ dog.age }}</p>
-        <p>{{ dog.description }}</p>
+        <p>Возраст: {{ dog.age }} год/лет</p>
+        <p>Коротко о: {{ dog.description }}</p>
       </router-link>
       </div>
   </div>
@@ -34,14 +31,14 @@
       v-model="newContent.age"
       />
     </div>
-    <span class="p-float-label">
+    <span class="p-field">
+      <label for="description">Коротко о:</label>
       <Textarea
+      style="margin-top: 10px; margin-bottom: 10px; width: 100%"
         v-model="newContent.description"
         rows="5"
         cols="30"
-        style="margin-bottom: 10px; width: 100%"
       />
-      <label>Коротко о:</label>
     </span>
     <form class="input__wrapper" enctype="multipart/form-data">
       <input id="inputfile" class="input inputfile" name="images" type="file" accept=".jpg, .png" @input="onUpload($event)" />
@@ -70,11 +67,10 @@ import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { useContent } from '../composables/useContent';
 import Textarea from 'primevue/textarea';
-import DogItem from './DogItem.vue';
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 
-const router = useRouter()
+// const router = useRouter()
 
 const { uploadImage, newContent, addContent, getContentList } = useContent();
 const visible = ref(false);
@@ -123,22 +119,22 @@ const dogsData = ref([]);
 onMounted(async () => {
   const querySnapshot = await getDocs(collection(db, 'dogs'));
   dogsData.value = querySnapshot.docs.map(doc => doc.data());
-  getContentList();
+  getContentList;
 });
-
-
-function goToDogUrl(id) {
-  router.push({ name: 'dog', params: { id } })
-}
 
 </script>
 
-  
-  <style scoped>
+
+<style scoped>
+
+.link {
+  text-decoration: none;
+}
   .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-image: url(../assets/bg.jpeg);
   }
   
   .card {
@@ -183,5 +179,5 @@ function goToDogUrl(id) {
     height: 50px;
     font-size: 17px;
 }
-  </style>
+</style>
   

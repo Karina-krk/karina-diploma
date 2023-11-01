@@ -1,8 +1,8 @@
 import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
-import { db, storage } from '@/firebase'
-import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { ref, computed } from 'vue'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { db,  } from '@/firebase'
+import { getStorage, uploadBytes,  } from 'firebase/storage'
+import { ref,  } from 'vue'
+//import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useUser } from './useUser'
 import * as firebase from 'firebase/storage'
 import { createId } from '../utils/index.js'
@@ -110,6 +110,6 @@ export const useContent = () => {
     getAllContent,
     getContentById,
     addContent,
-    deleteContent,
+    deleteContent,  
   }
 }
