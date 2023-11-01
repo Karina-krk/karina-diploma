@@ -26,9 +26,10 @@ const userToObject = computed(() => {
       email: user.value.email,
       displayName: user.value.displayName,
       photoURL: user.value.photoURL,
-      favourites: user.value.favourites ?? [],
+      favourites: user.value.favourites || [],
       status: user.value.status ?? 'user',
-      reviews: user.value.reviews ?? []
+      reviews: user.value.reviews ?? [],
+      bucket: user.value.bucket ?? [],
     }
   }
   return null
@@ -107,12 +108,14 @@ export const useUser = () => {
       try {
         const userDocRef = doc(db, 'users', user.value.uid)
         const existingUserDoc = await getDoc(userDocRef)
-        if (existingUserDoc.exists()) {
+        console.log(existingUserDoc)
+        if (existingUserDoc) {
           const userData = existingUserDoc.data()
           const updatedData = {
             ...userData,
             ...user.value
           }
+          console.log(updatedData)
           await setDoc(userDocRef, updatedData)
         }
       } catch (error) {
@@ -150,6 +153,7 @@ export const useUser = () => {
   // это надо не всем
   // для постоянной связи сервиса с базой данных
   watch(user.value, async (newValue) => {
+    console.log('user updated')
     if (newValue) {
       await updateUserInDatabase()
     }

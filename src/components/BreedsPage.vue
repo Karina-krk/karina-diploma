@@ -135,7 +135,9 @@ onMounted(async () => {
     flex-wrap: wrap;
     justify-content: center;
     background-image: url(../assets/bg.jpeg);
+    background-size: contain;
   }
+  
   
   .card {
     background-color: white;

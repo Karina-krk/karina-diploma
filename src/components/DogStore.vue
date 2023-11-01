@@ -9,36 +9,52 @@
           <button @click="addToCart(product)" class="add-to-cart-button">Добавить в корзину</button>
         </div>
       </div>
-      <div class="cart">
-        <h2>Корзина</h2>
-        <ul>
-          <li v-for="(item, index) in cart" :key="index">{{ item.name }} - {{ item.price }} тг.</li>
-        </ul>
-      </div>
     </div>
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
-  import { db } from '@/firebase';
-  import { collection, getDocs } from 'firebase/firestore';
-  import { useCart } from '../composables/useCart';
-  
-// eslint-disable-next-line no-unused-vars
-const { uploadImage, newContent, addContent, getContentList } = useCart();
+  import { ref } from 'vue';
+  import { useUser } from '../composables/useUser';
+
+  const {user} = useUser()
+
+  function addToCart(product) {
+    if (user.value) {
+      user.value.bucket.push(product);
+    } 
+  }
+
 
   const products = ref([
     {
       name: 'Корм для собак',
       description: 'Полноценный сбалансированный корм для здоровья вашей собаки.',
       price: 5000,
-      image: new URL('@/assets/korm.jpg', import.meta.url).href,
+      image: new URL('https://spinningline.kz/images/products_photo_providers/00422000/00422349/00422349_276928_LARGE.jpg').href,
     },
     {
       name: 'Ошейник для собак',
       description: 'Кожаный ошейник с металлической фурнитурой для вашего друга.',
-      price: 2000,
-      image: new URL('@/assets/osheinik.webp', import.meta.url).href,
+      price: 3000,
+      image: new URL('https://images.satu.kz/163572895_oshejnik-kozhanyj-dlya.jpg').href,
+    },
+    {
+      name: 'Игрушка для собаки',
+      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
+      price: 2500,
+      image: new URL('https://amma.pet/media/products/images/2023/06/08/good-13033e56-3f95-11e7-a998-005056bf744c.jpg').href,
+    },
+    {
+      name: 'Игрушка для собаки',
+      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
+      price: 1500,
+      image: new URL('https://7choice.net/wp-content/uploads/2019/01/odejda-dlya-sobak.jpg').href,
+    },
+    {
+      name: 'Игрушка для собаки',
+      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
+      price: 1500,
+      image: new URL('https://dimon-camon.ru/uploadedFiles/images/0/clothing_to_protect_dogs.jpg').href,
     },
     {
       name: 'Игрушка для собаки',
@@ -48,19 +64,6 @@ const { uploadImage, newContent, addContent, getContentList } = useCart();
     },
   ]);
   
-  const cart = ref([]);
-
-  function addToCart(product) {
-    cart.value.push(product);
-    console.log();
-  }
-
-
-  onMounted(async () => {
-  const querySnapshot = await getDocs(collection(db, 'carts'));
-  cart.value = querySnapshot.docs.map(doc => doc.data());
-  getContentList;
-});
   </script>
   
   <style scoped>

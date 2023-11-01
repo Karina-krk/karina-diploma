@@ -1,29 +1,38 @@
 <template>
-  <div class="dog-card">
-    <img :src="dog.image" :alt="dog.breed" class="dog-image">
-    <h2 class="dog-name">{{ dog.breed }}</h2>
-    <p class="dog-age">Возраст: {{ dog.age }} год/лет</p>
-    <p class="dog-description">Коротко о породе: {{ dog.description }}</p>
-    <h2 class="dog-id">ID: {{ dog.id }}</h2>
+  <div>
+    <div v-if="content && content.image" class="dog-card">
+      <img :src="content.image" :alt="content.breed" class="dog-image">
+      <h2 class="dog-name">{{ content.breed }}</h2>
+      <p class="dog-age">Возраст: {{ content.age }} год/лет</p>
+      <p class="dog-description">Коротко о породе: {{ content.description }}</p>
+      <h2 class="dog-id">ID: {{ content.id }}</h2>
+    </div>
+    <div v-else>
+      Загрузка данных...
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
+import { useContent } from '../composables/useContent';
 
 const route = useRoute();
-const dog = ref([]);
+const { getContentById, content } = useContent();
 
-onMounted(() => {
-  dog.value = route.params;
+onMounted(async () => {
+  console.log(route.params.id);
+  await getContentById(route.params.id);
 });
+
 </script>
+
 
 <style scoped>
 .dog-card {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;

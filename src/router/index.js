@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DogIdView from '../views/DogIdView.vue'
+import NotFoundPage from '../views/NotFoundPage.vue'
 
 import BreedsPage from '../components/BreedsPage.vue'
 import DogStore from '../components/DogStore.vue'
@@ -27,7 +28,12 @@ const router = createRouter({
       path: '/dog/:id',
       name: 'dog',
       component: DogIdView,
-    }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundPage,
+    },
     
   ]
 })

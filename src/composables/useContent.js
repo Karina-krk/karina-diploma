@@ -1,7 +1,7 @@
 import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
-import { db,  } from '@/firebase'
-import { getStorage, uploadBytes,  } from 'firebase/storage'
-import { ref,  } from 'vue'
+import { db } from '@/firebase'
+import { getStorage, uploadBytes } from 'firebase/storage'
+import { ref } from 'vue'
 //import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useUser } from './useUser'
 import * as firebase from 'firebase/storage'
@@ -15,9 +15,8 @@ export const useContent = () => {
     image: null,
     breed: '',
     age: '',
-    description: '',
+    description: ''
   })
-
 
   const loading = ref({
     content: false,
@@ -28,7 +27,7 @@ export const useContent = () => {
   async function getAllContent() {
     loading.value.contentList = true
     try {
-      const querySnapshot = await getDocs(collection(db, 'contents'))
+      const querySnapshot = await getDocs(collection(db, 'dogs'))
       contentList.value = querySnapshot.docs.map((doc) => doc.data())
       loading.value.contentList = false
     } catch (error) {
@@ -39,8 +38,14 @@ export const useContent = () => {
   async function getContentById(id) {
     loading.value.content = true
     try {
-      const querySnapshot = await getDocs(collection(db, 'contents'))
-      content.value = querySnapshot.docs.map((doc) => doc.data()).find((item) => item.id === id)
+      const querySnapshot = await getDocs(collection(db, 'dogs'))
+      content.value = querySnapshot.docs
+        .map((doc) => doc.data())
+        .find((item) => {
+          console.log(item.id === id)
+          return item.id === id
+        })
+      console.log(content.value)
       loading.value.content = false
     } catch (error) {
       console.error(error)
@@ -49,28 +54,26 @@ export const useContent = () => {
 
   async function addContent() {
     loading.value.newContent = true
-    
+
     const { userToObject } = useUser()
     try {
       console.log(newContent)
       console.log(userToObject.value)
       if (newContent.value && userToObject.value) {
         newContent.value.author = userToObject.value
-        const res = await addDoc(collection(db, 'contents'), newContent.value)
-        return res;
+        const res = await addDoc(collection(db, 'dogs'), newContent.value)
+        return res
         // loading.value.newContent = false
       }
-      
     } catch (error) {
       console.error(error)
     }
   }
 
-
   async function deleteContent(id) {
     try {
       if (content.value) {
-        await deleteDoc(doc(db, 'contents', id))
+        await deleteDoc(doc(db, 'dogs', id))
       }
     } catch (error) {
       console.error(error)
@@ -88,7 +91,7 @@ export const useContent = () => {
       .then(() => {
         console.log('Файл успешно загружен!')
         firebase
-        .getDownloadURL(storageRef)
+          .getDownloadURL(storageRef)
           .then((downloadURL) => {
             newContent.value.image = downloadURL
           })
@@ -110,6 +113,6 @@ export const useContent = () => {
     getAllContent,
     getContentById,
     addContent,
-    deleteContent,  
+    deleteContent
   }
 }
