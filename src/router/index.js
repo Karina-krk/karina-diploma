@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DogIdView from '../views/DogIdView.vue'
-import NotFoundPage from '../views/NotFoundPage.vue'
+import AboutView from '../views/AboutView.vue'
 
+import NotFoundPage from '../views/NotFoundPage.vue'
 import BreedsPage from '../components/BreedsPage.vue'
 import DogStore from '../components/DogStore.vue'
 
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/store',
       name: 'store',
       component: DogStore
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutView
     },
     {
       path: '/dog/:id',

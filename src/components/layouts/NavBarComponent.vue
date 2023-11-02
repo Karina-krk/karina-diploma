@@ -13,7 +13,12 @@
         <p-button v-if="!user" type="button" @click="googleRegister" label="Войти" icon="pi pi-lock"></p-button> 
         <p-button v-else type="button" @click="googleLogout" label="Выйти" icon="pi pi-lock-open"></p-button> 
       </div> 
-      
+      <div>
+        <Button icon="pi pi-shopping-cart" @click="visible = true" class="btn"/>
+        <Dialog v-model:visible="visible" modal styleClass="custom-dialog">
+          {{ user?.bucket }}
+        </Dialog>
+      </div>
     </header> 
   </section> 
 </template> 
@@ -21,15 +26,21 @@
 <script setup> 
 import PButton from 'primevue/button';
 import { useUser } from '@/composables/useUser';
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
+import { ref } from "vue";
+
+const visible = ref(false);
 const { user, googleRegister, googleLogout } = useUser();
+
 
 const menuItems = [
   { text: 'Главная', link: '/' },
   { text: 'Породы собак', link: '/breeds' },
   { text: 'Магазин', link: '/store' },
-  { text: "What's new", link: '#' }
+  { text: "Про нас", link: '/about' }
 ];
- 
+
 </script> 
  
 <style scoped> 
@@ -106,10 +117,68 @@ header ul li a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
 }
 .p-button { 
   background-color: rgb(203, 203, 203);
   border: #f2f2f200;
 } 
+.btn { 
+  border: #f2f2f200;
+  background-color: rgb(203, 203, 203); 
+  border-radius: 10px;
+  min-width: 70px;
+  min-height: 70px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+} 
 
+.custom-dialog .p-dialog-content {
+  padding: 0;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+  color: #000000;
+}
+
+.card-image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-top: 20px;
+  color: #333;
+}
+
+.card-description {
+  font-size: 16px;
+  color: #777;
+}
+
+.close-button {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.close-button:hover {
+  background-color: #ff3e32;
+}
 </style>

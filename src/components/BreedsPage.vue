@@ -1,17 +1,19 @@
 <template>
-  <div class="container">
-    <div class="card" v-for="(dog, index) in dogsData" :key="index">
-      <router-link :to="'/dog/' + dog.id" class="link">
-        <img :src="dog.image" :alt="dog.image">
-        <h2>{{ dog.breed }}</h2>
-        <p>Возраст: {{ dog.age }} год/лет</p>
-        <p>Коротко о: {{ dog.description }}</p>
-      </router-link>
+  <div class="all-items">
+    <div class="container">
+      <div class="card" v-for="(dog, index) in dogsData" :key="index">
+        <router-link :to="'/dog/' + dog.id" class="link">
+          <img :src="dog.image" :alt="dog.image">
+          <h2>{{ dog.breed }}</h2>
+          <h3>Возраст: </h3><p>{{ dog.age }} лет/год </p>
+          <h3>Коротко о:</h3> <p>{{ dog.description }} </p>
+        </router-link>
       </div>
-  </div>
+    </div>
     <Button label="Добавить" class="p-button" @click="visible = true">
-      <i class="fas fa-dog">Добавить</i>
+      <i class="fas fa-dog"></i>
     </Button>
+  </div>
   <Dialog v-model:visible="visible" modal header="Добавить" :style="{ width: '30vw' }">
     <div class="p-field">
       <label for="breed">Порода:</label>
@@ -53,7 +55,7 @@
       <Button label="Добавить" icon="pi pi-check" @click="add" autofocus />
     </template>
   </Dialog>
-  
+  <FooterComponent />
 </template>
   
 
@@ -67,6 +69,7 @@ import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { useContent } from '../composables/useContent';
 import Textarea from 'primevue/textarea';
+import FooterComponent from '../components/layouts/FooterComponent.vue'
 // import { useRouter } from 'vue-router'
 
 
@@ -126,7 +129,13 @@ onMounted(async () => {
 
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins:200, 300, 400, 500, 600, 700, 800, 900&display=swap'); 
 
+.all-items{
+  background-image: url(../assets/bg.jpeg);
+  background-size: contain;
+
+}
 .link {
   text-decoration: none;
 }
@@ -134,8 +143,6 @@ onMounted(async () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-image: url(../assets/bg.jpeg);
-    background-size: contain;
   }
   
   
@@ -146,6 +153,7 @@ onMounted(async () => {
     margin: 20px;
     padding: 20px;
     border-radius: 10px;
+    max-width: 300px;
   }
   
   .card:hover {
@@ -153,18 +161,20 @@ onMounted(async () => {
   }
   
   img {
-    max-width: 500px;
-    height: auto;
+    max-width: 250px;
+    min-height: 200px;
     border-radius: 5px;
   }
   
   h2 {
     margin-top: 10px;
     color: rgb(43, 144, 226);
+    font-family: 'Poppins', sans-serif; 
   }
   
   .card p {
     color: #888;
+    font-family: 'Poppins', sans-serif; 
   }
   .p-button {
     display: inline-flex;
@@ -177,9 +187,11 @@ onMounted(async () => {
     position: relative;
     color: rgb(241, 255, 249);
     background-color: rgb(43, 144, 226);
-    width: 100px;
-    height: 50px;
-    font-size: 17px;
+    width: 120px;
+    height: 60px;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif; 
+    padding-left: 45px;
 }
 </style>
   

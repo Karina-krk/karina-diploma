@@ -13,11 +13,10 @@ const { user, getUserFromLocalStorage } = useUser()
 
 <template>
   <NavBarComponent />
-  <!-- {{ user?.bucket }} -->
-  <RouterView />
   <template v-if="user?.status === 'admin'">
     <AdminPanel />
   </template>
+  <RouterView />
 </template>
 
 <style scoped>

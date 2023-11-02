@@ -6,7 +6,7 @@
           <h2 class="product-name">{{ product.name }}</h2>
           <p class="product-description">{{ product.description }}</p>
           <p class="product-price">{{ product.price }} тг.</p>
-          <button @click="addToCart(product)" class="add-to-cart-button">Добавить в корзину</button>
+          <button @click="addToCart(product)" class="add-to-cart-button"> <i class="pi pi-cart-plus"> Добавить в корзину </i></button>
         </div>
       </div>
     </div>
@@ -15,6 +15,8 @@
   <script setup>
   import { ref } from 'vue';
   import { useUser } from '../composables/useUser';
+  import 'primeicons/primeicons.css'
+
 
   const {user} = useUser()
 
@@ -45,21 +47,21 @@
       image: new URL('https://amma.pet/media/products/images/2023/06/08/good-13033e56-3f95-11e7-a998-005056bf744c.jpg').href,
     },
     {
-      name: 'Игрушка для собаки',
-      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
-      price: 1500,
+      name: 'Одежда для собаки',
+      description: 'Функциональные и стильные наряды, созданные специально для наших четырехногих друзей.',
+      price: 6000,
       image: new URL('https://7choice.net/wp-content/uploads/2019/01/odejda-dlya-sobak.jpg').href,
     },
     {
-      name: 'Игрушка для собаки',
-      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
-      price: 1500,
+      name: 'Поводок с капюшоном для собаки',
+      description: 'Удобный аксессуар, который обеспечивает комфорт и безопасность для вашего питомца во время прогулок.',
+      price: 7000,
       image: new URL('https://dimon-camon.ru/uploadedFiles/images/0/clothing_to_protect_dogs.jpg').href,
     },
     {
-      name: 'Игрушка для собаки',
-      description: 'Прочная резиновая игрушка для активных игр и тренировок.',
-      price: 1500,
+      name: 'Игрушки и акссесуары для собаки',
+      description: 'Игра с данной игрушкой помогает собаке поддерживать хорошую физическую форму и заниматься спортом.',
+      price: 10000,
       image: new URL('@/assets/igrushka.jpeg', import.meta.url).href,
     },
   ]);
