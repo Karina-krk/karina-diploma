@@ -1,6 +1,6 @@
 <template>
     <div class="not-found">
-     <img src="../assets/not-found-dog.JPEG" alt="Ничего не найдено" />
+     <img src="../assets/not-found-dog.jpeg" alt="Ничего не найдено" />
      <h1>ERROR 404 - PAGE NOT FOUND</h1>
      <p>The page you requested was not found</p>
     </div>
