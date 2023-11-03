@@ -16,7 +16,12 @@
       <div>
         <Button icon="pi pi-shopping-cart" @click="visible = true" class="btn"/>
         <Dialog v-model:visible="visible" modal styleClass="custom-dialog">
-          {{ user?.bucket }}
+          <div class="card" v-for="item in user.bucket" :key="item.id">
+            <img class="card-image" :src="item.image" alt="Card Image" />
+            <div class="card-title">{{ item.name }}</div>
+            <div class="card-description">{{ item.description }}</div>
+          </div>
+          <button class="close-button" @click="visible = false">Закрыть</button>
         </Dialog>
       </div>
     </header> 
@@ -40,6 +45,7 @@ const menuItems = [
   { text: 'Магазин', link: '/store' },
   { text: "Про нас", link: '/about' }
 ];
+
 
 </script> 
  
@@ -146,7 +152,7 @@ header ul li a:hover {
   text-align: center;
   padding: 20px;
   max-width: 300px;
-  margin: 0 auto;
+  margin: 10px auto;
   color: #000000;
 }
 
@@ -154,7 +160,7 @@ header ul li a:hover {
   width: 100%;
   max-height: 200px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
 }
 
 .card-title {
@@ -166,19 +172,71 @@ header ul li a:hover {
 .card-description {
   font-size: 16px;
   color: #777;
+  margin-top: 10px;
 }
 
 .close-button {
   background-color: #ff6347;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0 0 10px 10px;
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .close-button:hover {
   background-color: #ff3e32;
 }
+
+
+/* Медиа-запросы для iPhone 12 Pro */
+@media only screen and (max-width: 390px) {
+  header {
+    padding: 10px 20px; 
+  }
+
+  header .logo {
+    max-width: 50px; 
+  }
+
+  header ul {
+    width: 50%;
+    height: 50px; 
+    gap: 5px; 
+  }
+
+  header ul li a {
+    font-size: 10px; 
+    margin-left: 5px;
+  }
+
+  .side, .btn {
+    min-width: 30px; 
+    min-height: 30px; 
+    margin-left: 10px;
+  }
+  .card {
+    max-width: 250px; 
+    margin: 10px auto;
+  }
+
+  .card-title {
+    font-size: 20px; 
+    margin-top: 15px;
+  }
+
+  .card-description {
+    font-size: 14px; 
+    margin-top: 10px;
+  }
+
+  .close-button {
+    padding: 10px 15px; 
+    margin-top: 15px;
+  }
+}
+
+
 </style>

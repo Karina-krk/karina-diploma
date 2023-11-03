@@ -10,11 +10,11 @@
         </router-link>
       </div>
     </div>
-    <Button label="Добавить" class="p-button" @click="visible = true">
+    <Button label="Добавить новую собаку" class="p-button" @click="visible = true">
       <i class="fas fa-dog"></i>
     </Button>
   </div>
-  <Dialog v-model:visible="visible" modal header="Добавить" :style="{ width: '30vw' }">
+  <Dialog v-model:visible="visible" modal header="Добавить новую собаку" :style="{ width: '30vw' }">
     <div class="p-field">
       <label for="breed">Порода:</label>
       <InputText
@@ -45,14 +45,12 @@
     <form class="input__wrapper" enctype="multipart/form-data">
       <input id="inputfile" class="input inputfile" name="images" type="file" accept=".jpg, .png" @input="onUpload($event)" />
       <label for="inputfile" class="inputfile-button">
-        <span class="input__file-icon-wrapper">
-          <img class="input__file-icon" width="25" />
-        </span>
+        <span class="input__file-icon-wrapper"/>
       </label>
     </form>
     <template #footer>
-      <Button label="Сбросить" icon="pi pi-times" @click="clear" text />
-      <Button label="Добавить" icon="pi pi-check" @click="add" autofocus />
+      <Button label="Сбросить" icon="pi pi-times" @click="clear" text class="btn" />
+      <Button label="Добавить" icon="pi pi-check" @click="add" autofocus class="btn" />
     </template>
   </Dialog>
   <FooterComponent />
@@ -161,7 +159,7 @@ onMounted(async () => {
   }
   
   img {
-    max-width: 250px;
+    max-width: 260px;
     min-height: 200px;
     border-radius: 5px;
   }
@@ -192,6 +190,13 @@ onMounted(async () => {
     font-size: 28px;
     font-family: 'Poppins', sans-serif; 
     padding-left: 45px;
+}
+.btn{
+  width:max-content;
+  height: 40px;
+  font-size: 12px;
+  margin: 10px;
+  padding: 5px;
 }
 </style>
   

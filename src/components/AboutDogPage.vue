@@ -50,13 +50,11 @@ img.background {
   min-height: 100%;
   min-width: 100%;
   height: auto;
-}
-
-img.background {
   position: fixed;
   top: 0;
   left: 0;
 }
+
 
 .section {
   min-height: 100vh;
@@ -107,5 +105,40 @@ img.background {
 
 .section-2 p {
   line-height: 100%;
+}
+
+@media only screen and (max-width: 428px) {
+  img.background {
+    z-index: 0; 
+    background-size: cover
+  }
+  
+  .section {
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .section > div {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    color: white;
+    left: 26%;
+    top: 35%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+
+  }
+  .section-1 {
+    font-size: 20px;
+  }
+
+  .section-2 h2 {
+    font-size: 1.2em;
+  }
+
+  .section-2 p {
+    font-size: 0.9em;
+  }
 }
 </style>
