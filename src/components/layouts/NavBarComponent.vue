@@ -166,7 +166,7 @@ header ul li a:hover {
 .card-title {
   font-size: 24px;
   margin-top: 20px;
-  color: #333;
+  color: #292929;
 }
 
 .card-description {
