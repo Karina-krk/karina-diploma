@@ -91,6 +91,7 @@ async function addDog() {
       description: newContent.value.description,
       image: newContent.value.image,
     };
+    console.log(newContent.value.image)
 
     const docRef = await addDoc(collection(db, 'dogs'), dogData);
     console.log('Document written with ID: ', docRef.id);
